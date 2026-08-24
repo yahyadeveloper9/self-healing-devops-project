@@ -6,7 +6,13 @@ Hey! This is a complete end-to-end self-healing infrastructure project on AWS us
 
 Watch the final working project and self-healing demonstration here:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/z3V2TL9ySks?si=ln_xYl4xiNUYGLXJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<a href="https://youtu.be/z3V2TL9ySks?si=RzsVZYFPrkp_2egp">
+  <img 
+    src="https://img.youtube.com/vi/z3V2TL9ySks/maxresdefault.jpg" 
+    alt="Watch Self-Healing DevOps Project Demo"
+    width="700"
+  >
+</a>
 
 ## Prerequisites
 Before you start, make sure you have these installed on your machine:
