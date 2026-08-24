@@ -1,0 +1,49 @@
+---
+
+- name: Ensure files directory exists
+  file:
+    path: /opt/resume-platform/ansible/roles/application/files
+    state: directory
+
+- name: Build Docker image for Node Backend
+  command: docker build -t resume-backend .
+  args:
+    chdir: /opt/resume-platform/website
+
+- name: Create docker network
+  command: docker network create resume-net
+  ignore_errors: yes
+
+- name: Stop and remove existing containers
+  shell: docker rm -f resume-app-container resume-backend-container resume-apache-container resume-nginx-container || true; sleep 3
+  ignore_errors: yes
+
+- name: Run Node Backend container
+  command: >
+    docker run -d --name resume-backend-container 
+    --network resume-net
+    -p 3000:3000 
+    -v /var/log/resume-app:/var/log/resume-app 
+    -v /var/lib/resume-monitor:/var/lib/resume-monitor 
+    -e RESUME_BUCKET_NAME="{{ hostvars[inventory_hostname].resume_bucket_name | default('') }}" 
+    -e AWS_REGION="{{ hostvars[inventory_hostname].aws_region | default('ap-south-1') }}" 
+    --restart unless-stopped 
+    resume-backend
+
+- name: Run Apache container for Frontend
+  command: >
+    docker run -d --name resume-apache-container 
+    --network resume-net
+    -p 8080:80 
+    -v /opt/resume-platform/website/frontend:/usr/local/apache2/htdocs/ 
+    --restart unless-stopped 
+    httpd:alpine
+
+- name: Run Nginx container as Dummy Site
+  command: >
+    docker run -d --name resume-nginx-container 
+    --network resume-net
+    -p 80:80
+    -v /opt/resume-platform/ansible/roles/application/files/nginx.conf:/etc/nginx/nginx.conf:ro 
+    --restart unless-stopped 
+    nginx:alpine

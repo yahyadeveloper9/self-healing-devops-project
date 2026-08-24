@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahya Shaikh - DevOps Engineer</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --primary: #3b82f6;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            border-bottom: 1px solid #334155;
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            background: -webkit-linear-gradient(#3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        h2 { margin-top: 0; color: #94a3b8; }
+        .buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        button, .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+        button:hover, .btn:hover { opacity: 0.9; }
+        .section {
+            padding: 3rem 0;
+            border-bottom: 1px solid #334155;
+        }
+        .card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .status-card {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+        .status-healthy { color: var(--success); font-weight: bold; }
+        .status-failed { color: var(--danger); font-weight: bold; }
+        .status-recovering { color: var(--warning); font-weight: bold; }
+        .status-unknown { color: #94a3b8; font-weight: bold; }
+        .log-box {
+            background-color: #000;
+            color: #10b981;
+            font-family: monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            height: 200px;
+            overflow-y: auto;
+        }
+        .crash-btn { background-color: var(--danger); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>YAHYA SHAIKH</h1>
+            <h2>Junior DevOps / DevSecOps Engineer</h2>
+            <p>Entry-level DevOps Engineer with hands-on project experience in Linux, Networking, Git, Bash, CI/CD, Docker, Kubernetes, Terraform, Ansible, and AWS.</p>
+            <div class="buttons">
+                <a href="#" id="download-resume" class="btn">Download Resume</a>
+                <a href="tel:+919867321089" class="btn">Call: +91 9867321089</a>
+            </div>
+        </header>
+
+        <div class="section">
+            <h3 style="text-align: center; border-bottom: none;">Recovery Logs</h3>
+            <p style="text-align: center; color: #94a3b8;">Live automated remediation events tracking the self-healing process.</p>
+            <div id="logs" class="log-box">LOADING...</div>
+        </div>
+
+        <div class="section" style="background-color: #334155; padding: 1.5rem; border-radius: 0.5rem; text-align: center; margin-bottom: 2rem;">
+            <h3>🌐 NGINX DUMMY WEBSITE LINK</h3>
+            <p>Click the link below to open the Nginx Dummy Website in a new tab:</p>
+            <a id="visible-nginx-link" href="#" target="_blank" style="font-size: 1.2rem; color: #60a5fa; font-weight: bold; text-decoration: underline;">Loading URL...</a>
+            <script>
+                const dummyUrl = 'http://' + window.location.hostname + '/';
+                const linkEl = document.getElementById('visible-nginx-link');
+                linkEl.href = dummyUrl;
+                linkEl.innerText = dummyUrl;
+            </script>
+        </div>
+
+        <div id="infrastructure-demo" class="section">
+            <h3 style="text-align: center; border-bottom: none;">Infrastructure Health Dashboard</h3>
+            <p style="text-align: center; color: #94a3b8;">Live status of the Self-Healing Resume Infrastructure Platform</p>
+            
+            <div class="status-grid">
+                <div class="status-card">
+                    <h4>Overall</h4>
+                    <div id="status-overall" class="status-unknown">LOADING...</div>
+                </div>
+                <div class="status-card">
+                    <h4>Nginx Proxy</h4>
+                    <div id="status-nginx" class="status-unknown">LOADING...</div>
+                </div>
+                <div class="status-card">
+                    <h4>Docker Backend (Node)</h4>
+                    <div id="status-application" class="status-unknown">LOADING...</div>
+                </div>
+                <div class="status-card">
+                    <h4>Apache Frontend</h4>
+                    <div id="status-apache" class="status-healthy">HEALTHY</div>
+                </div>
+                <div class="status-card">
+                    <h4>Monitoring Agent</h4>
+                    <div id="status-monitoring" class="status-unknown">LOADING...</div>
+                </div>
+                <div class="status-card">
+                    <h4>S3 Storage</h4>
+                    <div id="status-storage" class="status-unknown">LOADING...</div>
+                </div>
+            </div>
+
+            <div class="buttons" style="margin-bottom: 2rem;">
+                <button class="crash-btn" onclick="crashService('nginx')">Crash Nginx Proxy & Check Recovery</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Start polling immediately
+        window.addEventListener('DOMContentLoaded', () => {
+            pollHealth();
+            pollLogs();
+            setInterval(pollHealth, 3000);
+            setInterval(pollLogs, 3000);
+        });
+
+        const API_BASE = 'http://' + window.location.hostname + ':3000';
+
+        document.getElementById('download-resume').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const res = await fetch(`${API_BASE}/api/resume`);
+                const data = await res.json();
+                if (data.url) {
+                    window.open(data.url, '_blank');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (err) {
+                alert('Could not fetch resume URL');
+            }
+        });
+
+        async function pollHealth() {
+            try {
+                const res = await fetch(`${API_BASE}/api/health`);
+                const data = await res.json();
+                
+                updateStatus('overall', data.overall);
+                updateStatus('nginx', data.services.nginx);
+                updateStatus('application', data.services.application);
+                updateStatus('monitoring', data.services.monitoring);
+                updateStatus('storage', data.services.storage);
+            } catch (err) {
+                updateStatus('overall', 'failed');
+                updateStatus('application', 'failed');
+            }
+        }
+
+        function updateStatus(service, state) {
+            const el = document.getElementById(`status-${service}`);
+            if (!el) return;
+            
+            let displayState = state.toUpperCase();
+            if (displayState === 'FAILED') displayState = 'CRASHED';
+            
+            el.textContent = displayState;
+            el.className = '';
+            if (state === 'healthy') el.classList.add('status-healthy');
+            else if (state === 'failed' || state === 'down') el.classList.add('status-failed');
+            else if (state === 'recovering') el.classList.add('status-recovering');
+            else el.classList.add('status-unknown');
+        }
+
+        async function pollLogs() {
+            try {
+                const res = await fetch(`${API_BASE}/api/events`);
+                const data = await res.json();
+                const logBox = document.getElementById('logs');
+                
+                const coloredLogs = data.events.map(log => {
+                    if (log.toLowerCase().includes('crash') || log.toLowerCase().includes('down') || log.toLowerCase().includes('failed') || log.toLowerCase().includes('failure')) {
+                        return `<span style="color: #ef4444;">${log}</span>`; // Red
+                    } else if (log.toLowerCase().includes('recover') || log.toLowerCase().includes('healthy') || log.toLowerCase().includes('started')) {
+                        return `<span style="color: #22c55e;">${log}</span>`; // Green
+                    } else {
+                        return `<span style="color: #94a3b8;">${log}</span>`; // Grey
+                    }
+                });
+                
+                logBox.innerHTML = coloredLogs.join('<br>');
+                logBox.scrollTop = logBox.scrollHeight;
+            } catch (err) {
+                console.error("Failed to fetch logs");
+            }
+        }
+
+        async function crashService(service) {
+            try {
+                await fetch(`${API_BASE}/api/crash/${service}`, { method: 'POST' });
+                alert(`${service} crash initiated. Watch the dashboard for automatic recovery!`);
+                pollHealth();
+                pollLogs();
+            } catch (err) {
+                alert("Failed to initiate crash.");
+            }
+        }
+    </script>
+</body>
+</html>

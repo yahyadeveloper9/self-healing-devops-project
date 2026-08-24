@@ -1,0 +1,18 @@
+[Unit]
+Description=Resume Platform Backend Node Application
+After=network.target
+
+[Service]
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=RESUME_BUCKET_NAME={{ hostvars[inventory_hostname].resume_bucket_name | default('') }}
+Environment=AWS_REGION={{ hostvars[inventory_hostname].aws_region | default('ap-south-1') }}
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/resume-platform/website/backend
+ExecStart=/usr/bin/node server.js
+# We disable automatic restart by systemd so our Ansible recovery demo works
+Restart=no
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,75 @@
+---
+- name: Update package cache
+  yum:
+    name: '*'
+    state: latest
+  when: ansible_os_family == "RedHat"
+  ignore_errors: yes
+
+- name: Disable UFW on Ubuntu
+  service:
+    name: ufw
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+  when: ansible_os_family == "Debian"
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install base packages
+  package:
+    name:
+      - git
+      - jq
+      - unzip
+    state: present
+
+- name: Install curl on Debian for nodesource
+  apt:
+    name: curl
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Docker
+  apt:
+    name: 
+      - docker.io
+      - iptables
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Ensure Docker is running
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+  when: ansible_os_family == "Debian"
+
+- name: Stop and remove Nginx
+  apt:
+    name: nginx
+    state: absent
+  ignore_errors: yes
+
+- name: Set iptables default policies to ACCEPT
+  command: "{{ item }}"
+  with_items:
+    - iptables -P INPUT ACCEPT
+    - iptables -P FORWARD ACCEPT
+    - iptables -P OUTPUT ACCEPT
+  ignore_errors: yes
+
+- name: Install Ansible on host for local recovery execution
+  package:
+    name: ansible
+    state: present
+  ignore_errors: yes
+
+- name: Ensure /opt/resume-platform exists
+  file:
+    path: /opt/resume-platform
+    state: directory
+    mode: '0755'

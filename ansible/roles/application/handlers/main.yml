@@ -1,0 +1,6 @@
+---
+- name: Restart resume-app
+  systemd:
+    name: resume-app
+    state: restarted
+    daemon_reload: yes

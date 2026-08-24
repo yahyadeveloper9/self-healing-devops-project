@@ -1,0 +1,8 @@
+---
+- name: Configure Self-Healing Resume Infrastructure
+  hosts: webservers
+  become: yes
+  roles:
+    - common
+    - application
+    - monitoring

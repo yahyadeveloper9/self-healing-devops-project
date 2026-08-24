@@ -1,0 +1,14 @@
+[Unit]
+Description=Resume Platform Health Monitoring Agent
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/resume-platform/monitoring/scripts
+ExecStart=/bin/bash /opt/resume-platform/monitoring/scripts/health-agent.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

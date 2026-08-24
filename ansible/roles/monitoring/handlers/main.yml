@@ -1,0 +1,6 @@
+---
+- name: Restart resume-monitor
+  systemd:
+    name: resume-monitor
+    state: restarted
+    daemon_reload: yes

@@ -1,0 +1,26 @@
+---
+- name: Recover Service
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Verify target_service is defined
+      fail:
+        msg: "target_service must be defined"
+      when: target_service is not defined
+
+    - name: Ensure target service is restarted (systemd)
+      systemd:
+        name: "{{ target_service }}"
+        state: restarted
+        enabled: yes
+      when: target_service != "application" and target_service != "nginx"
+      ignore_errors: yes
+
+    - name: Ensure application container is restarted (Docker)
+      command: docker restart resume-backend-container
+      when: target_service == "application"
+
+    - name: Ensure nginx container is restarted (Docker)
+      command: docker restart resume-nginx-container
+      when: target_service == "nginx"
