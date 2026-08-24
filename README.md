@@ -8,11 +8,13 @@ Watch the final working project and self-healing demonstration here:
 
 <a href="https://youtu.be/z3V2TL9ySks?si=RzsVZYFPrkp_2egp">
   <img 
-    src="https://img.youtube.com/vi/z3V2TL9ySks/maxresdefault.jpg" 
-    alt="Watch Self-Healing DevOps Project Demo"
-    width="700"
+    src="https://img.youtube.com/vi/z3V2TL9ySks/hqdefault.jpg"
+    alt="▶ Watch Project Demo"
+    width="500"
   >
 </a>
+
+**▶️ Click to watch the complete project demo**
 
 ## Prerequisites
 Before you start, make sure you have these installed on your machine:
